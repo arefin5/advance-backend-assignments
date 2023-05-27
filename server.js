@@ -10,13 +10,17 @@ app.use(urlencoded({ extended: true }));
 
 // Route to handle the GET request for the form page
 app.get('/', (req, res) => {
-  res.send(`
+  try {
+    res.send(`
     <form method="POST" action="api/twonumber">
       <input type="text" name="start" placeholder="start">
       <input type="number" name="end" placeholder="end">
       <button type="submit">Submit</button>
     </form>
   `);
+  } catch (error) {
+    res.status(500).send("data not find")
+  }
 });
 
 // Route to handle the POST request and process the form data

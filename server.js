@@ -1,6 +1,7 @@
 import express from 'express';
 import { urlencoded } from 'express';
 import main from './routes/main';
+import client from './client/client';
 // import client from './client/client';
 
 const app = express();
@@ -9,19 +10,7 @@ const app = express();
 app.use(urlencoded({ extended: true }));
 
 // Route to handle the GET request for the form page
-app.get('/', (req, res) => {
-  try {
-    res.send(`
-    <form method="POST" action="api/twonumber">
-      <input type="text" name="start" placeholder="start">
-      <input type="number" name="end" placeholder="end">
-      <button type="submit">Submit</button>
-    </form>
-  `);
-  } catch (error) {
-    res.status(500).send("data not find")
-  }
-});
+app.get('/',client)
 
 // Route to handle the POST request and process the form data
 app.use('/api', main);
